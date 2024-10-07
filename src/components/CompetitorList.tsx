@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react';
 import { getCompetitors } from '../api/competitors.ts';
 import { DataGrid, GridColDef, GridActionsCellItem } from '@mui/x-data-grid';
-import Paper from '@mui/material/Paper';
 import EditIcon from '@mui/icons-material/Edit';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import {
   Box,
   CircularProgress,
   Container,
   Grid2,
   Typography,
+  Paper,
+  Button,
 } from '@mui/material';
 import CompetitorAction from './CompetitorAction.tsx';
+import DialogAddCompetitor from './DialogAddCompetitor.tsx';
 
 interface Competitor {
   _id: string;
@@ -52,6 +55,7 @@ function CompetitorList() {
   const [competitors, setCompetitors] = useState<object[]>([]);
   const [selectedCompetitor, setSelectedCompetitor] =
     useState<Competitor | null>(null);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const fetchCompetitors = async () => {
@@ -93,19 +97,36 @@ function CompetitorList() {
           <PickACompetitor />
         )}
       </Paper>
-      <Paper sx={{ height: '100%', width: '100%', padding: 2, flex: 0.5 }}>
+      <Paper
+        sx={{
+          height: '100%',
+          width: '100%',
+          padding: 2,
+          flex: 0.5,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'end',
+        }}>
+        <Button
+          startIcon={<AddCircleIcon />}
+          variant='contained'
+          onClick={() => setOpen(true)}
+          sx={{ marginBottom: 1 }}>
+          Add new competitor
+        </Button>
         <DataGrid
           rows={competitors}
           columns={columns}
           initialState={{ pagination: { paginationModel } }}
           pageSizeOptions={[5, 10]}
-          sx={{ border: 0 }}
+          sx={{ border: 0, width: '100%', height: '100%' }}
           getRowId={(row) => row._id}
           onRowClick={(item) => {
             setSelectedCompetitor(item.row);
           }}
         />
       </Paper>
+      <DialogAddCompetitor open={open} onClose={() => setOpen(false)} />
     </Grid2>
   );
 }
