@@ -4,15 +4,13 @@ import { DataGrid, GridColDef, GridActionsCellItem } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import {
-  Box,
   CircularProgress,
   Container,
   Grid2,
-  Typography,
   Paper,
   Button,
 } from '@mui/material';
-import CompetitorAction from './CompetitorAction.tsx';
+import CompetitorAction from '../features/CompetitorActions';
 import DialogAddCompetitor from './DialogAddCompetitor.tsx';
 
 interface Competitor {
@@ -88,14 +86,10 @@ function CompetitorList() {
   return (
     <Grid2 container gap={4} direction={'column'} sx={{ marginTop: 4 }}>
       <Paper sx={{ height: '100%', width: '100%', padding: 2, flex: 1 }}>
-        {selectedCompetitor ? (
-          <CompetitorAction
-            competitor={selectedCompetitor}
-            updateCompetitors={updateCompetitors}
-          />
-        ) : (
-          <PickACompetitor />
-        )}
+        <CompetitorAction
+          competitor={selectedCompetitor}
+          updateCompetitors={updateCompetitors}
+        />
       </Paper>
       <Paper
         sx={{
@@ -132,13 +126,3 @@ function CompetitorList() {
 }
 
 export default CompetitorList;
-
-function PickACompetitor() {
-  return (
-    <Box>
-      <Typography variant='h4'>
-        Pick a competitor below to see available actions
-      </Typography>
-    </Box>
-  );
-}

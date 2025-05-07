@@ -1,4 +1,5 @@
 import { apiResponse } from '../types/api';
+import type { GifID } from '@giphy/js-types';
 
 async function handleAPIRequest(resource: string, options: RequestInit) {
   const res = await fetch(resource, options);
@@ -24,7 +25,7 @@ export async function getCompetitors(): Promise<apiResponse> {
   );
 }
 
-export async function updateCompetitorImage(id: string, image: string) {
+export async function updateCompetitorImage(id: string, image: GifID) {
   const options: RequestInit = {
     method: 'PUT',
     headers: {

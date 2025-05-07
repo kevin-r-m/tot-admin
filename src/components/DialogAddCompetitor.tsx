@@ -24,8 +24,7 @@ export interface SimpleDialogProps {
   onClose: () => void;
 }
 
-function DialogAddCompetitor(props: SimpleDialogProps) {
-  const { onClose, open } = props;
+function DialogAddCompetitor({ onClose, open }: SimpleDialogProps) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [isLoading, setIsLoading] = useState(false);
