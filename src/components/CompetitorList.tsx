@@ -10,8 +10,8 @@ import {
   Paper,
   Button,
 } from '@mui/material';
-import CompetitorAction from '../features/CompetitorActions';
-import DialogAddCompetitor from './DialogAddCompetitor.tsx';
+import CompetitorActions from '../features/CompetitorManagement/CompetitorActions/';
+import DialogAddCompetitor from '../features/DialogAddCompetitor.tsx';
 
 interface Competitor {
   _id: string;
@@ -86,7 +86,7 @@ function CompetitorList() {
   return (
     <Grid2 container gap={4} direction={'column'} sx={{ marginTop: 4 }}>
       <Paper sx={{ height: '100%', width: '100%', padding: 2, flex: 1 }}>
-        <CompetitorAction
+        <CompetitorActions
           competitor={selectedCompetitor}
           updateCompetitors={updateCompetitors}
         />

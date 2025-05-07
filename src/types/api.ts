@@ -1,4 +1,11 @@
 export interface apiResponse {
   success: boolean;
-  data: object[];
+  data: Competitor[];
+}
+
+export interface Competitor {
+  _id: string;
+  name: string;
+  image?: string;
+  description: string;
 }

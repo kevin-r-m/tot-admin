@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import { updateCompetitorImage } from '../../api/competitors';
+import { updateCompetitorImage } from '../../../api/competitors';
 
 import type { Competitor } from './types';
 import type { IGif } from '@giphy/js-types';

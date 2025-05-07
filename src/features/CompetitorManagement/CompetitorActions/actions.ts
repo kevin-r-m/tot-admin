@@ -1,5 +1,5 @@
 import { GiphyFetch } from '@giphy/js-fetch-api';
-import { GIPHY_PUBLIC_KEY } from '../../constants';
+import { GIPHY_PUBLIC_KEY } from '../../../constants';
 import type { GifID } from '@giphy/js-types';
 
 const gf = new GiphyFetch(GIPHY_PUBLIC_KEY);

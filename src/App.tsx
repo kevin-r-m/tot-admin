@@ -1,5 +1,5 @@
 import { Container, Typography } from '@mui/material';
-import CompetitorList from './components/CompetitorList';
+import CompetitorManagement from './features/CompetitorManagement';
 
 function App() {
   return (
@@ -7,7 +7,7 @@ function App() {
       <Typography variant='body1' gutterBottom>
         This or That Admin Portal
       </Typography>
-      <CompetitorList />
+      <CompetitorManagement />
     </Container>
   );
 }

@@ -1,10 +1,10 @@
-import { Box, Grid2, Typography } from '@mui/material';
+import { Box, Grid2, Typography, Paper } from '@mui/material';
 import { useState, useEffect } from 'react';
 import GifToast from './GifToast';
 
 import { getGifById } from './actions';
 import type { IGif } from '@giphy/js-types';
-import type { Competitor } from './types';
+import type { Competitor } from '../types';
 
 import PickACompetitor from './PickCompetitor';
 import { GifSearch } from './GifSearch';
@@ -12,11 +12,11 @@ import GifDisplay from './GifDisplay';
 import UpdateGif from './UpdateGif';
 
 interface CompetitorActionProps {
-  competitor: Competitor;
+  competitor: Competitor | null;
   updateCompetitors: (updatedCompetitor: Competitor) => void;
 }
 
-function CompetitorAction({
+export default function CompetitorActions({
   competitor,
   updateCompetitors,
 }: CompetitorActionProps) {
@@ -39,7 +39,16 @@ function CompetitorAction({
   }
 
   return (
-    <>
+    <Paper
+      sx={{
+        height: '100%',
+        width: '100%',
+        padding: 2,
+        flex: 0.5,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'end',
+      }}>
       <Grid2 container columns={16}>
         <Grid2
           display='flex'
@@ -80,8 +89,6 @@ function CompetitorAction({
         </Grid2>
       </Grid2>
       <GifToast open={open} setOpen={setOpen} />
-    </>
+    </Paper>
   );
 }
-
-export default CompetitorAction;
