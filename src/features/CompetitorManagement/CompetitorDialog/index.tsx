@@ -9,10 +9,10 @@ import {
     IconButton,
     CircularProgress,
 } from '@mui/material';
-import { getAIDescription } from '../actions';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import { createCompetitor } from '../../../api/competitors';
 import { Competitor } from '../../../shared/types';
+import { useStreamedDescription } from './useStreamedDescription';
 
 export interface CompetitorDialogProps {
     open: boolean;
@@ -23,21 +23,23 @@ export interface CompetitorDialogProps {
 export default function CompetitorDialog({ onClose, open, addCompetitorToState }: CompetitorDialogProps) {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
+    const {
+        description: streamedDescription,
+        streamLoading,
+        streamDescription,
+        resetStream,
+    } = useStreamedDescription();
 
     function handleClose() {
         setName('');
         setDescription('');
+        resetStream();
         onClose();
     }
 
-    async function handleAIDescription() {
-        setIsLoading(true);
-        const response = await getAIDescription(name);
-        if (response) {
-            setDescription(response);
-        }
-        setIsLoading(false);
+    function handleAIDescription() {
+        resetStream();
+        streamDescription(name);
     }
 
     async function handleSubmit(event: React.FormEvent) {
@@ -45,6 +47,7 @@ export default function CompetitorDialog({ onClose, open, addCompetitorToState }
         const formData = new FormData(event.target as HTMLFormElement);
         const name = formData.get('name') as string;
         const description = formData.get('description') as string;
+
         const created = await createCompetitor(name, description);
         if (created.success) {
             addCompetitorToState({ _id: created.id, name, description, wins: 0, losses: 0, totalVotes: 0 });
@@ -76,18 +79,18 @@ export default function CompetitorDialog({ onClose, open, addCompetitorToState }
                         rows={6}
                         multiline
                         required
-                        value={description}
+                        value={streamedDescription || description}
                         onChange={(e) => setDescription(e.target.value)}
-                        disabled={isLoading}
+                        disabled={streamLoading}
                         slotProps={{
                             input: {
                                 endAdornment: (
                                     <IconButton
                                         title="Auto-generate"
-                                        disabled={!name || isLoading}
+                                        disabled={!name || streamLoading}
                                         onClick={handleAIDescription}
                                     >
-                                        {isLoading ? (
+                                        {streamLoading ? (
                                             <CircularProgress size={20} />
                                         ) : (
                                             <AutoAwesomeIcon color={name ? 'primary' : 'disabled'} />
