@@ -1,41 +1,47 @@
-import { apiResponse } from '../types/api';
+import { apiResponse } from '../shared/types';
 import type { GifID } from '@giphy/js-types';
 
 async function handleAPIRequest(resource: string, options: RequestInit) {
-  const res = await fetch(resource, options);
+    const res = await fetch(resource, options);
 
-  if (!res.ok) {
-    throw new Error(`HTTP error! status: ${res.status}`);
-  }
+    if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+    }
 
-  return res.json();
+    return res.json();
 }
 
 export async function getCompetitors(): Promise<apiResponse> {
-  const options: RequestInit = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': import.meta.env.VITE_API_KEY,
-    },
-  };
-  return handleAPIRequest(
-    `${import.meta.env.VITE_API_URL}/api/competitors`,
-    options
-  );
+    const options: RequestInit = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': import.meta.env.VITE_API_KEY,
+        },
+    };
+    return handleAPIRequest(`${import.meta.env.VITE_API_URL}/api/competitors`, options);
 }
 
 export async function updateCompetitorImage(id: string, image: GifID) {
-  const options: RequestInit = {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': import.meta.env.VITE_API_KEY,
-    },
-    body: JSON.stringify({ id, image }),
-  };
-  return handleAPIRequest(
-    `${import.meta.env.VITE_API_URL}/api/competitor/image`,
-    options
-  );
+    const options: RequestInit = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': import.meta.env.VITE_API_KEY,
+        },
+        body: JSON.stringify({ id, image }),
+    };
+    return handleAPIRequest(`${import.meta.env.VITE_API_URL}/api/competitor/image`, options);
+}
+
+export async function createCompetitor(name: string, description: string) {
+    const options: RequestInit = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': import.meta.env.VITE_API_KEY,
+        },
+        body: JSON.stringify({ name, description, image: '', totalVotes: 0, wins: 0, losses: 0 }),
+    };
+    return handleAPIRequest(`${import.meta.env.VITE_API_URL}/api/competitor`, options);
 }

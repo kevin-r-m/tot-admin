@@ -1,14 +1,19 @@
 import { Button } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
-export default function AddCompetitor() {
-  return (
-    <Button
-      startIcon={<AddCircleIcon />}
-      variant='contained'
-      // onClick={openAddDialog}
-      sx={{ marginBottom: 1 }}>
-      Add new competitor
-    </Button>
-  );
+interface AddCompetitorProps {
+    setDialogOpen: (open: boolean) => void;
+}
+
+export default function AddCompetitor({ setDialogOpen }: AddCompetitorProps) {
+    return (
+        <Button
+            startIcon={<AddCircleIcon />}
+            variant="contained"
+            onClick={() => setDialogOpen(true)}
+            sx={{ marginBottom: 1 }}
+        >
+            Add new competitor
+        </Button>
+    );
 }

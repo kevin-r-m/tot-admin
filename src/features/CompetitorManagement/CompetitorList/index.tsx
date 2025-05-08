@@ -7,12 +7,13 @@ import AddCompetitor from './AddCompetitor';
 interface CompetitorListProps {
   competitors: Competitor[];
   setActiveCompetitor: (competitor: Competitor) => void;
-  //   openAddDialog: () => void;
+  setDialogOpen: (open: boolean) => void;
 }
 
 export default function CompetitorList({
   competitors,
   setActiveCompetitor,
+  setDialogOpen,
 }: CompetitorListProps) {
   return (
     <Paper
@@ -25,7 +26,7 @@ export default function CompetitorList({
         flexDirection: 'column',
         alignItems: 'end',
       }}>
-      <AddCompetitor />
+      <AddCompetitor setDialogOpen={setDialogOpen} />
       <CompetitorTable
         competitors={competitors}
         setActiveCompetitor={setActiveCompetitor}
