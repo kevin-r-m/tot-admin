@@ -1,5 +1,5 @@
 import { DataGrid, GridColDef, GridActionsCellItem } from '@mui/x-data-grid';
-import { Competitor } from '../types';
+import type { Competitor } from '@/shared/types';
 import EditIcon from '@mui/icons-material/Edit';
 
 const columns: GridColDef[] = [

@@ -1,10 +1,10 @@
-import { Box, Grid2, Typography, Paper } from '@mui/material';
+import { Box, Grid2 as Grid, Typography, Paper } from '@mui/material';
 import { useState, useEffect } from 'react';
 import GifToast from './GifToast';
 
 import { getGifById } from './actions';
 import type { IGif } from '@giphy/js-types';
-import type { Competitor } from '../types';
+import type { Competitor } from '@/shared/types';
 
 import PickACompetitor from './PickCompetitor';
 import { GifSearch } from './GifSearch';
@@ -49,8 +49,8 @@ export default function CompetitorActions({ competitor, updateCompetitors }: Com
                 alignItems: 'end',
             }}
         >
-            <Grid2 container columns={16}>
-                <Grid2 display="flex" flexDirection={'column'} justifyContent={'space-between'} size={9}>
+            <Grid container columns={16}>
+                <Grid display="flex" flexDirection={'column'} justifyContent={'space-between'} size={9}>
                     <Box>
                         <Typography variant="h3" gutterBottom>
                             {competitor.name}
@@ -58,8 +58,8 @@ export default function CompetitorActions({ competitor, updateCompetitors }: Com
                         <Typography variant="body1">{competitor.description}</Typography>
                     </Box>
                     <GifSearch setGifs={setAllGifs} setActiveGif={setActiveGif} competitorName={competitor.name} />
-                </Grid2>
-                <Grid2 container spacing={2} alignItems="center" flexDirection={'column'} size={7}>
+                </Grid>
+                <Grid container spacing={2} alignItems="center" flexDirection={'column'} size={7}>
                     <GifDisplay
                         competitor={competitor}
                         activeGif={activeGif}
@@ -73,8 +73,8 @@ export default function CompetitorActions({ competitor, updateCompetitors }: Com
                         updateCompetitors={updateCompetitors}
                         setOpen={setOpen}
                     />
-                </Grid2>
-            </Grid2>
+                </Grid>
+            </Grid>
             <GifToast open={open} setOpen={setOpen} />
         </Paper>
     );

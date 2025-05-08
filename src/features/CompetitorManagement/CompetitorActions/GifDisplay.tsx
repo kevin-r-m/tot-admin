@@ -1,8 +1,8 @@
-import { Grid2, Box, Typography, IconButton } from '@mui/material';
+import { Grid2 as Grid, Box, Typography, IconButton } from '@mui/material';
 import { Gif } from '@giphy/react-components';
 
 import type { IGif } from '@giphy/js-types';
-import { Competitor } from '../types';
+import type { Competitor } from '@/shared/types';
 
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
@@ -40,7 +40,7 @@ export default function GifDisplay({ activeGif, setActiveGif, allGifs }: GifDisp
     }
 
     return (
-        <Grid2 size={8} display="flex" justifyContent="center" alignItems="center" flexDirection={'column'} gap={2}>
+        <Grid size={8} display="flex" justifyContent="center" alignItems="center" flexDirection={'column'} gap={2}>
             {activeGif ? (
                 <Gif gif={activeGif} width={300} height={300} hideAttribution noLink />
             ) : (
@@ -55,7 +55,7 @@ export default function GifDisplay({ activeGif, setActiveGif, allGifs }: GifDisp
                     <Typography variant="body1">No active gif</Typography>
                 </Box>
             )}
-            <Grid2 container spacing={2} columns={3} alignItems="center">
+            <Grid container spacing={2} columns={3} alignItems="center">
                 <IconButton
                     color="primary"
                     disabled={!activeGif || allGifs.length === 0}
@@ -73,7 +73,7 @@ export default function GifDisplay({ activeGif, setActiveGif, allGifs }: GifDisp
                 >
                     <ArrowCircleRightIcon />
                 </IconButton>
-            </Grid2>
-        </Grid2>
+            </Grid>
+        </Grid>
     );
 }

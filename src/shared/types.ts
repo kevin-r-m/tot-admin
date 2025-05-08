@@ -1,3 +1,5 @@
+import type { GifID } from '@giphy/js-types';
+
 export interface apiResponse {
     success: boolean;
     data: Competitor[];
@@ -6,7 +8,7 @@ export interface apiResponse {
 export interface Competitor {
     _id: string;
     name: string;
-    image?: string;
+    image?: GifID;
     description: string;
     wins: number;
     losses: number;
