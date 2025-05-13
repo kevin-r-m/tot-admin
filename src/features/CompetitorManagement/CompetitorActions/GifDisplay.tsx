@@ -41,20 +41,22 @@ export default function GifDisplay({ activeGif, setActiveGif, allGifs }: GifDisp
 
     return (
         <Grid size={8} display="flex" justifyContent="center" alignItems="center" flexDirection={'column'} gap={2}>
-            {activeGif ? (
-                <Gif gif={activeGif} width={300} height={300} hideAttribution noLink />
-            ) : (
-                <Box
-                    display={'flex'}
-                    justifyContent={'center'}
-                    alignItems={'center'}
-                    width={'300px'}
-                    height={'300px'}
-                    sx={{ border: '1px dashed black' }}
-                >
+            <Box
+                display={'flex'}
+                justifyContent={'center'}
+                alignItems={'center'}
+                width={'260px'}
+                height={'260px'}
+                sx={{ border: '1px dashed black' }}
+                borderRadius={1}
+                bgcolor={'#f5f5f5'}
+            >
+                {activeGif ? (
+                    <Gif gif={activeGif} width={250} height={250} hideAttribution noLink />
+                ) : (
                     <Typography variant="body1">No active gif</Typography>
-                </Box>
-            )}
+                )}
+            </Box>
             <Grid container spacing={2} columns={3} alignItems="center">
                 <IconButton
                     color="primary"

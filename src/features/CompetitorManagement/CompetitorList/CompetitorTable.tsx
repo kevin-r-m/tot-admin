@@ -1,6 +1,7 @@
 import { DataGrid, GridColDef, GridActionsCellItem } from '@mui/x-data-grid';
 import type { Competitor } from '@/shared/types';
 import EditIcon from '@mui/icons-material/Edit';
+import { Delete } from '@mui/icons-material';
 
 const columns: GridColDef[] = [
     { field: '_id', headerName: 'ID', flex: 0.3 },
@@ -19,7 +20,14 @@ const columns: GridColDef[] = [
                     label="Edit"
                     className="textPrimary"
                     // onClick={handleEditClick(id)}
-                    color="inherit"
+                    color="primary"
+                />,
+                <GridActionsCellItem
+                    icon={<Delete />}
+                    label="Edit"
+                    className="textPrimary"
+                    // onClick={handleEditClick(id)}
+                    color="warning"
                 />,
             ];
         },

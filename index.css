@@ -1,3 +1,7 @@
 html {
-  background-color: #bcf5ff;
+    background-color: #bcf5ff;
+}
+
+body {
+    margin: 0;
 }

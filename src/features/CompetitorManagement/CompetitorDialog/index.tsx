@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { Dialog, DialogTitle, DialogActions, DialogContent, Button, TextField } from '@mui/material';
-import { createCompetitor } from '@/api/competitors';
-import type { Competitor } from '@/shared/types';
-import { useStreamedDescription } from './useStreamedDescription';
 import AIButton from './AIButton';
+
+import { createCompetitor } from '@/api/competitors';
+import { streamAIDescription } from './actions';
+import type { Competitor } from '@/shared/types';
 
 export interface CompetitorDialogProps {
     open: boolean;
@@ -14,23 +15,21 @@ export interface CompetitorDialogProps {
 export default function CompetitorDialog({ onClose, open, addCompetitorToList }: CompetitorDialogProps) {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const {
-        description: streamedDescription,
-        streamLoading,
-        streamDescription,
-        resetStream,
-    } = useStreamedDescription();
+    const [loading, setLoading] = useState(false);
 
     function handleClose() {
         setName('');
         setDescription('');
-        resetStream();
         onClose();
     }
 
-    function handleAIDescription() {
-        resetStream();
-        streamDescription(name);
+    async function handleAIDescription() {
+        setLoading(true);
+        setDescription('');
+        await streamAIDescription(name, (chunk) => {
+            setDescription((prev) => prev + chunk);
+        });
+        setLoading(false);
     }
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -57,7 +56,6 @@ export default function CompetitorDialog({ onClose, open, addCompetitorToList }:
             <DialogTitle>Add competitor</DialogTitle>
             <DialogContent>
                 <TextField
-                    autoFocus
                     margin="dense"
                     name="name"
                     label="Name"
@@ -75,15 +73,15 @@ export default function CompetitorDialog({ onClose, open, addCompetitorToList }:
                     rows={6}
                     multiline
                     required
-                    value={streamedDescription || description}
+                    value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    disabled={streamLoading}
+                    disabled={loading}
                     slotProps={{
                         input: {
                             endAdornment: (
                                 <AIButton
-                                    isLoading={streamLoading}
-                                    disabled={!name || streamLoading}
+                                    isLoading={loading}
+                                    disabled={!name || loading}
                                     onClick={handleAIDescription}
                                 />
                             ),

@@ -1,15 +1,16 @@
-import { Container, Typography } from '@mui/material';
+import { Container } from '@mui/material';
 import CompetitorManagement from './features/CompetitorManagement';
+import Header from './features/Header';
 
 function App() {
-  return (
-    <Container>
-      <Typography variant='body1' gutterBottom>
-        This or That Admin Portal
-      </Typography>
-      <CompetitorManagement />
-    </Container>
-  );
+    return (
+        <>
+            <Header />
+            <Container>
+                <CompetitorManagement />
+            </Container>
+        </>
+    );
 }
 
 export default App;
