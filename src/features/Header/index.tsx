@@ -5,7 +5,7 @@ export default function Header() {
         <AppBar position="static">
             <Container>
                 <Grid container justifyContent={'space-between'} alignItems={'center'} paddingY={2}>
-                    <Typography variant="h4">This or That Admin</Typography>
+                    <Typography variant="body1">This or That Admin</Typography>
                     <Avatar sx={{ bgcolor: '#006f49' }}>KM</Avatar>
                 </Grid>
             </Container>

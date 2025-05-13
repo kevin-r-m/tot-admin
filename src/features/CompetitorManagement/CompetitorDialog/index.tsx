@@ -27,7 +27,7 @@ export default function CompetitorDialog({ open, onClose, addCompetitorToList }:
         setLoading(true);
         setDescription('');
         await streamAIDescription(name, (chunk) => {
-            setDescription((prev) => prev + chunk);
+            setDescription((curr) => curr + chunk);
         });
         setLoading(false);
     }
