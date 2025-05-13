@@ -46,7 +46,7 @@ export default function CompetitorTable({ competitors, setActiveCompetitor }: Co
         <DataGrid
             rows={competitors}
             columns={columns}
-            initialState={{ pagination: { paginationModel }, sorting: { sortModel: [{ field: 'name', sort: 'asc' }] } }}
+            initialState={{ pagination: { paginationModel } }}
             pageSizeOptions={[5, 10]}
             sx={{ border: 0, width: '100%', height: '100%' }}
             getRowId={(row) => row._id}
