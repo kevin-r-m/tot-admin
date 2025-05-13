@@ -12,7 +12,7 @@ export interface CompetitorDialogProps {
     addCompetitorToList: (competitors: Competitor) => void;
 }
 
-export default function CompetitorDialog({ onClose, open, addCompetitorToList }: CompetitorDialogProps) {
+export default function CompetitorDialog({ open, onClose, addCompetitorToList }: CompetitorDialogProps) {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [loading, setLoading] = useState(false);
