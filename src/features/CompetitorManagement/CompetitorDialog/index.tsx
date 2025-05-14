@@ -6,6 +6,8 @@ import { createCompetitor } from '@/api/competitors';
 import { streamAIDescription } from './actions';
 import type { Competitor } from '@/shared/types';
 
+import { Add } from '@mui/icons-material';
+
 export interface CompetitorDialogProps {
     open: boolean;
     onClose: () => void;
@@ -89,9 +91,13 @@ export default function CompetitorDialog({ open, onClose, addCompetitorToList }:
                     }}
                 />
             </DialogContent>
-            <DialogActions>
-                <Button onClick={handleClose}>Cancel</Button>
-                <Button type="submit">Add</Button>
+            <DialogActions sx={{ gap: 2 }}>
+                <Button onClick={handleClose} variant="outlined" color="error">
+                    Cancel
+                </Button>
+                <Button startIcon={<Add />} type="submit" variant="contained" color="success">
+                    Add
+                </Button>
             </DialogActions>
         </Dialog>
     );
