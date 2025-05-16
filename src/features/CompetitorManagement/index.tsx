@@ -30,8 +30,8 @@ export default function CompetitorManagement() {
         );
     }
 
-    function addCompetitorToList(newCompetitor: Competitor) {
-        setCompetitors((prevCompetitors) => [newCompetitor, ...prevCompetitors]);
+    function addCompetitorsToList(newCompetitors: Competitor[]) {
+        setCompetitors((prevCompetitors) => [...newCompetitors, ...prevCompetitors]);
     }
 
     function handleDialogClose() {
@@ -46,7 +46,11 @@ export default function CompetitorManagement() {
                 setActiveCompetitor={setActiveCompetitor}
                 setDialogOpen={setDialogOpen}
             />
-            <CompetitorDialog open={dialogOpen} onClose={handleDialogClose} addCompetitorToList={addCompetitorToList} />
+            <CompetitorDialog
+                open={dialogOpen}
+                onClose={handleDialogClose}
+                addCompetitorsToList={addCompetitorsToList}
+            />
         </Grid>
     );
 }

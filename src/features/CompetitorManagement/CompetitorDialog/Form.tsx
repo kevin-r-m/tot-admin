@@ -7,7 +7,7 @@ import type { Competitor } from '@/shared/types';
 import { Add } from '@mui/icons-material';
 
 interface FormProps {
-    addCompetitorToList: (competitor: Competitor) => void;
+    addCompetitorsToList: (competitors: Competitor[]) => void;
     handleClose: () => void;
     formFields: {
         name: string;
@@ -21,7 +21,7 @@ interface FormProps {
     >;
 }
 
-export default function Form({ addCompetitorToList, handleClose, formFields, setFormFields }: FormProps) {
+export default function Form({ addCompetitorsToList, handleClose, formFields, setFormFields }: FormProps) {
     const [loading, setLoading] = useState(false);
 
     async function handleAIDescription() {
@@ -44,7 +44,7 @@ export default function Form({ addCompetitorToList, handleClose, formFields, set
 
         const created = await createCompetitor(name, description);
         if (created.success) {
-            addCompetitorToList({ _id: created.id, name, description, wins: 0, losses: 0, totalVotes: 0 });
+            addCompetitorsToList([{ _id: created.id, name, description, wins: 0, losses: 0, totalVotes: 0 }]);
         }
         handleClose();
     }

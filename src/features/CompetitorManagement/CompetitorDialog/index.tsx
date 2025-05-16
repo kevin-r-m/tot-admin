@@ -4,16 +4,20 @@ import { Dialog, DialogTitle } from '@mui/material';
 import type { Competitor } from '@/shared/types';
 import Form from './Form';
 import Selector from './Selector';
-import GeneratedCompetitorList from './GeneratedCompetitorList';
+import GeneratedCompetitors from './GeneratedCompetitors';
+import { generateCompetitors } from './actions';
+import ProgressStepper from './ProgressStepper';
 
 export interface CompetitorDialogProps {
     open: boolean;
     onClose: () => void;
-    addCompetitorToList: (competitors: Competitor) => void;
+    addCompetitorsToList: (competitors: Competitor[]) => void;
 }
 
-export default function CompetitorDialog({ open, onClose, addCompetitorToList }: CompetitorDialogProps) {
-    const [view, setView] = useState<'auto' | 'manual' | null>(null);
+export default function CompetitorDialog({ open, onClose, addCompetitorsToList }: CompetitorDialogProps) {
+    const [view, setView] = useState<'auto' | 'manual' | 'progress' | null>(null);
+    const [rows, setRows] = useState([]);
+    const [activeStep, setActiveStep] = useState(0);
     const [formFields, setFormFields] = useState({
         name: '',
         description: '',
@@ -27,19 +31,43 @@ export default function CompetitorDialog({ open, onClose, addCompetitorToList }:
         }, 250);
     }
 
+    async function handleGenerateList() {
+        setView('progress');
+        const response = await generateCompetitors((step: number) => {
+            if (step === 2) {
+                setTimeout(() => {
+                    setActiveStep(step);
+                }, 2000);
+            } else {
+                setActiveStep(step);
+            }
+        });
+        setRows(response?.data);
+        setTimeout(() => {
+            setView('auto');
+        }, 4000);
+    }
+
     return (
         <Dialog onClose={handleClose} open={open} fullWidth maxWidth="md">
-            <DialogTitle>Add competitor</DialogTitle>
+            <DialogTitle>Add Competitor</DialogTitle>
             {view === 'manual' && (
                 <Form
-                    addCompetitorToList={addCompetitorToList}
+                    addCompetitorsToList={addCompetitorsToList}
                     handleClose={handleClose}
                     formFields={formFields}
                     setFormFields={setFormFields}
                 />
             )}
-            {view === 'auto' && <GeneratedCompetitorList />}
-            {view === null && <Selector setView={setView} />}
+            {view === 'auto' && (
+                <GeneratedCompetitors
+                    handleClose={handleClose}
+                    rows={rows}
+                    addCompetitorsToList={addCompetitorsToList}
+                />
+            )}
+            {view === 'progress' && <ProgressStepper activeStep={activeStep} />}
+            {view === null && <Selector setView={setView} handleGenerateList={handleGenerateList} />}
         </Dialog>
     );
 }

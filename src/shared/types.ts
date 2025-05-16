@@ -6,7 +6,7 @@ export interface apiResponse {
 }
 
 export interface Competitor {
-    _id: string;
+    _id?: string;
     name: string;
     image?: GifID;
     description: string;

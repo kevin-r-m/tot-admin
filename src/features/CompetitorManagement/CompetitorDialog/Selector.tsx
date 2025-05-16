@@ -2,13 +2,14 @@ import { Box, Button, DialogContent, Divider } from '@mui/material';
 
 interface SelectorProps {
     setView: (view: 'auto' | 'manual') => void;
+    handleGenerateList: () => void;
 }
 
-export default function Selector({ setView }: SelectorProps) {
+export default function Selector({ setView, handleGenerateList }: SelectorProps) {
     return (
         <DialogContent>
             <Box display="flex" alignItems="center" justifyContent={'center'} gap={4}>
-                <Button variant="contained" color="primary" onClick={() => setView('auto')}>
+                <Button variant="contained" color="primary" onClick={handleGenerateList}>
                     Auto-Generate List
                 </Button>
                 <Divider orientation="vertical" flexItem />
