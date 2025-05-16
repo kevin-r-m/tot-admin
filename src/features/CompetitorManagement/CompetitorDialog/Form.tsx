@@ -21,7 +21,7 @@ interface FormProps {
     >;
 }
 
-export default function Form({ addCompetitorsToList, handleClose, formFields, setFormFields }: FormProps) {
+export default function CompetitorForm({ addCompetitorsToList, handleClose, formFields, setFormFields }: FormProps) {
     const [loading, setLoading] = useState(false);
 
     async function handleAIDescription() {
