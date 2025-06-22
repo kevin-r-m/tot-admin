@@ -11,7 +11,7 @@ async function handleAPIRequest(resource: string, options: RequestInit) {
     return res.json();
 }
 
-export async function getCompetitors(): Promise<apiResponse> {
+export function getCompetitors(): Promise<apiResponse> {
     const options: RequestInit = {
         method: 'GET',
         headers: {
@@ -22,7 +22,7 @@ export async function getCompetitors(): Promise<apiResponse> {
     return handleAPIRequest(`${import.meta.env.VITE_API_URL}/api/competitors`, options);
 }
 
-export async function updateCompetitorImage(id: string, image: GifID) {
+export function updateCompetitorImage(id: string, image: GifID) {
     const options: RequestInit = {
         method: 'PUT',
         headers: {
@@ -34,7 +34,7 @@ export async function updateCompetitorImage(id: string, image: GifID) {
     return handleAPIRequest(`${import.meta.env.VITE_API_URL}/api/competitor/image`, options);
 }
 
-export async function createCompetitor(name: string, description: string) {
+export function createCompetitor(name: string, description: string) {
     const options: RequestInit = {
         method: 'POST',
         headers: {

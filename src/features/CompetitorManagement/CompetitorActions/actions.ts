@@ -9,8 +9,7 @@ export function getGifById(gifId: GifID) {
     return gf.gif(stringifiedId);
 }
 
-export async function getGifsByTerm(term: string) {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+export function getGifsByTerm(term: string) {
     return gf.search(term, {
         sort: 'relevant',
         lang: 'en',

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Dialog, DialogTitle } from '@mui/material';
-
 import type { Competitor } from '@/shared/types';
 import Form from './Form';
 import Selector from './Selector';
