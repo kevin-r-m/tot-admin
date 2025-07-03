@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { getCompetitors } from '@/api/competitors';
+import { useState } from 'react';
+import { useCompetitorsQuery } from '@/api/competitors';
 
 import { Grid2 as Grid } from '@mui/material';
 import CompetitorActions from './CompetitorActions';
@@ -9,18 +9,10 @@ import CompetitorDialog from './CompetitorDialog';
 import type { Competitor } from '@/shared/types';
 
 export default function CompetitorManagement() {
+    const { data = [], isLoading } = useCompetitorsQuery();
     const [activeCompetitor, setActiveCompetitor] = useState<Competitor | null>(null);
     const [competitors, setCompetitors] = useState<Competitor[]>([]);
     const [dialogOpen, setDialogOpen] = useState(false);
-
-    useEffect(() => {
-        const fetchCompetitors = async () => {
-            const response = await getCompetitors();
-            setCompetitors(response.data);
-        };
-
-        fetchCompetitors();
-    }, []);
 
     function updateCompetitors(updatedCompetitor: Competitor) {
         setCompetitors((prevCompetitors) =>
@@ -30,27 +22,16 @@ export default function CompetitorManagement() {
         );
     }
 
-    function addCompetitorsToList(newCompetitors: Competitor[]) {
-        setCompetitors((prevCompetitors) => [...newCompetitors, ...prevCompetitors]);
-    }
-
-    function handleDialogClose() {
-        setDialogOpen(false);
-    }
-
     return (
         <Grid container gap={4} direction={'column'} sx={{ marginTop: 4 }}>
             <CompetitorActions competitor={activeCompetitor} updateCompetitors={updateCompetitors} />
             <CompetitorList
-                competitors={competitors}
+                competitors={data}
                 setActiveCompetitor={setActiveCompetitor}
                 setDialogOpen={setDialogOpen}
+                isLoading={isLoading}
             />
-            <CompetitorDialog
-                open={dialogOpen}
-                onClose={handleDialogClose}
-                addCompetitorsToList={addCompetitorsToList}
-            />
+            <CompetitorDialog open={dialogOpen} onClose={() => setDialogOpen(false)} />
         </Grid>
     );
 }

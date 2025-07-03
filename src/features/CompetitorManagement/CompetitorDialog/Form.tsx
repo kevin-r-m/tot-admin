@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import { DialogActions, DialogContent, Button, TextField } from '@mui/material';
+import { useCreateCompetitorMutation } from '@/api/competitors';
 import AIButton from './AIButton';
-import { createCompetitor } from '@/api/competitors';
 import { streamAIDescription } from './actions';
-import type { Competitor } from '@/shared/types';
 import { Add } from '@mui/icons-material';
 
 interface FormProps {
-    addCompetitorsToList: (competitors: Competitor[]) => void;
     handleClose: () => void;
     formFields: {
         name: string;
@@ -21,8 +19,9 @@ interface FormProps {
     >;
 }
 
-export default function CompetitorForm({ addCompetitorsToList, handleClose, formFields, setFormFields }: FormProps) {
+export default function Form({ handleClose, formFields, setFormFields }: FormProps) {
     const [loading, setLoading] = useState(false);
+    const { mutate: createCompetitor } = useCreateCompetitorMutation();
 
     async function handleAIDescription() {
         setLoading(true);
@@ -42,10 +41,8 @@ export default function CompetitorForm({ addCompetitorsToList, handleClose, form
         const name = formData.get('name') as string;
         const description = formData.get('description') as string;
 
-        const created = await createCompetitor(name, description);
-        if (created.success) {
-            addCompetitorsToList([{ _id: created.id, name, description, wins: 0, losses: 0, totalVotes: 0 }]);
-        }
+        createCompetitor({ name, description });
+
         handleClose();
     }
 

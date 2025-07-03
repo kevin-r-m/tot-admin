@@ -39,11 +39,13 @@ const paginationModel = { page: 0, pageSize: 5, pageSizeOptions: [5, 10] };
 interface CompetitorTableProps {
     competitors: Competitor[];
     setActiveCompetitor: (competitor: Competitor) => void;
+    isLoading: boolean;
 }
 
-export default function CompetitorTable({ competitors, setActiveCompetitor }: CompetitorTableProps) {
+export default function CompetitorTable({ competitors, setActiveCompetitor, isLoading }: CompetitorTableProps) {
     return (
         <DataGrid
+            loading={isLoading}
             rows={competitors}
             columns={columns}
             initialState={{ pagination: { paginationModel } }}

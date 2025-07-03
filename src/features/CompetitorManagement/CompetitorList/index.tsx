@@ -8,9 +8,15 @@ interface CompetitorListProps {
     competitors: Competitor[];
     setActiveCompetitor: (competitor: Competitor) => void;
     setDialogOpen: (open: boolean) => void;
+    isLoading: boolean;
 }
 
-export default function CompetitorList({ competitors, setActiveCompetitor, setDialogOpen }: CompetitorListProps) {
+export default function CompetitorList({
+    competitors,
+    setActiveCompetitor,
+    setDialogOpen,
+    isLoading,
+}: CompetitorListProps) {
     return (
         <Paper
             sx={{
@@ -24,7 +30,11 @@ export default function CompetitorList({ competitors, setActiveCompetitor, setDi
             }}
         >
             <AddCompetitor setDialogOpen={setDialogOpen} />
-            <CompetitorTable competitors={competitors} setActiveCompetitor={setActiveCompetitor} />
+            <CompetitorTable
+                competitors={competitors}
+                setActiveCompetitor={setActiveCompetitor}
+                isLoading={isLoading}
+            />
         </Paper>
     );
 }

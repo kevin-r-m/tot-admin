@@ -1,10 +1,8 @@
 import { useState } from 'react';
-
+import { useCreateCompetitorsBulkMutation } from '../actions';
 import { DialogContent, DialogActions, Button } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import CompetitorTable from './CompetitorTable';
-import type { Competitor } from '@/shared/types';
-import { createCompetitorsBulk } from '../actions';
 
 interface GeneratedCompetitorsProps {
     handleClose: () => void;
@@ -13,14 +11,12 @@ interface GeneratedCompetitorsProps {
         matchedCompetitor: string;
         description: string;
     }[];
-    addCompetitorsToList: (competitors: Competitor[]) => void;
 }
-export default function GeneratedCompetitors({ handleClose, rows, addCompetitorsToList }: GeneratedCompetitorsProps) {
+export default function GeneratedCompetitors({ handleClose, rows }: GeneratedCompetitorsProps) {
+    const { mutate: createCompetitorsBulk, isPending } = useCreateCompetitorsBulkMutation();
     const [idsToAdd, setIdsToAdd] = useState(rows.map((row) => row.competitorName));
-    const [loading, setLoading] = useState(false);
 
     async function handleAdd() {
-        setLoading(true);
         const rowsToAdd = rows.filter((row) => idsToAdd.includes(row.competitorName));
         const competitorsToAdd = rowsToAdd.map((row) => ({
             name: row.competitorName,
@@ -29,11 +25,7 @@ export default function GeneratedCompetitors({ handleClose, rows, addCompetitors
             losses: 0,
             totalVotes: 0,
         }));
-        const created = await createCompetitorsBulk(competitorsToAdd);
-        if (created.success) {
-            addCompetitorsToList(created.data);
-        }
-        setLoading(false);
+        createCompetitorsBulk(competitorsToAdd);
         handleClose();
     }
 
@@ -41,7 +33,7 @@ export default function GeneratedCompetitors({ handleClose, rows, addCompetitors
         <DialogContent>
             <CompetitorTable rows={rows} idsToAdd={idsToAdd} setIdsToAdd={setIdsToAdd} />
             <DialogActions sx={{ gap: 2 }}>
-                <Button variant="outlined" color="error" onClick={handleClose} disabled={loading}>
+                <Button variant="outlined" color="error" onClick={handleClose} disabled={isPending}>
                     Cancel
                 </Button>
                 <Button
@@ -50,7 +42,7 @@ export default function GeneratedCompetitors({ handleClose, rows, addCompetitors
                     variant="contained"
                     color="success"
                     onClick={handleAdd}
-                    loading={loading}
+                    loading={isPending}
                 >
                     Add ({idsToAdd.length})
                 </Button>

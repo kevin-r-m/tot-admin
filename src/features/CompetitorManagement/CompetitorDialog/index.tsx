@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Dialog, DialogTitle } from '@mui/material';
-import type { Competitor } from '@/shared/types';
 import Form from './Form';
 import Selector from './Selector';
 import GeneratedCompetitors from './GeneratedCompetitors';
@@ -10,10 +9,9 @@ import ProgressStepper from './ProgressStepper';
 export interface CompetitorDialogProps {
     open: boolean;
     onClose: () => void;
-    addCompetitorsToList: (competitors: Competitor[]) => void;
 }
 
-export default function CompetitorDialog({ open, onClose, addCompetitorsToList }: CompetitorDialogProps) {
+export default function CompetitorDialog({ open, onClose }: CompetitorDialogProps) {
     const [view, setView] = useState<'auto' | 'manual' | 'progress' | null>(null);
     const [rows, setRows] = useState([]);
     const [activeStep, setActiveStep] = useState(0);
@@ -51,20 +49,9 @@ export default function CompetitorDialog({ open, onClose, addCompetitorsToList }
         <Dialog onClose={handleClose} open={open} fullWidth maxWidth="md">
             <DialogTitle>Add Competitor</DialogTitle>
             {view === 'manual' && (
-                <Form
-                    addCompetitorsToList={addCompetitorsToList}
-                    handleClose={handleClose}
-                    formFields={formFields}
-                    setFormFields={setFormFields}
-                />
+                <Form handleClose={handleClose} formFields={formFields} setFormFields={setFormFields} />
             )}
-            {view === 'auto' && (
-                <GeneratedCompetitors
-                    handleClose={handleClose}
-                    rows={rows}
-                    addCompetitorsToList={addCompetitorsToList}
-                />
-            )}
+            {view === 'auto' && <GeneratedCompetitors handleClose={handleClose} rows={rows} />}
             {view === 'progress' && <ProgressStepper activeStep={activeStep} />}
             {view === null && <Selector setView={setView} handleGenerateList={handleGenerateList} />}
         </Dialog>
