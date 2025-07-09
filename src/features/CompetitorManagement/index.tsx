@@ -11,20 +11,11 @@ import type { Competitor } from '@/shared/types';
 export default function CompetitorManagement() {
     const { data = [], isLoading } = useCompetitorsQuery();
     const [activeCompetitor, setActiveCompetitor] = useState<Competitor | null>(null);
-    const [competitors, setCompetitors] = useState<Competitor[]>([]);
     const [dialogOpen, setDialogOpen] = useState(false);
-
-    function updateCompetitors(updatedCompetitor: Competitor) {
-        setCompetitors((prevCompetitors) =>
-            prevCompetitors.map((competitor) =>
-                competitor._id === updatedCompetitor._id ? { ...competitor, ...updatedCompetitor } : competitor,
-            ),
-        );
-    }
 
     return (
         <Grid container gap={4} direction={'column'} sx={{ marginTop: 4 }}>
-            <CompetitorActions competitor={activeCompetitor} updateCompetitors={updateCompetitors} />
+            <CompetitorActions competitor={activeCompetitor} />
             <CompetitorList
                 competitors={data}
                 setActiveCompetitor={setActiveCompetitor}

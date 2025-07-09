@@ -23,6 +23,19 @@ export async function getCompetitors() {
     return response.data;
 }
 
+export function useUpdateCompetitorImageMutation() {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationKey: ['updateCompetitorImage'],
+        mutationFn: ({ id, image }: { id: string; image: GifID }) => updateCompetitorImage(id, image),
+        onSuccess: (_, { id, image }) => {
+            queryClient.setQueryData(['competitors'], (oldData: Competitor[]) =>
+                oldData.map((competitor) => (competitor._id === id ? { ...competitor, image } : competitor)),
+            );
+        },
+    });
+}
+
 export function updateCompetitorImage(id: string, image: GifID) {
     const options: RequestInit = {
         method: 'PUT',

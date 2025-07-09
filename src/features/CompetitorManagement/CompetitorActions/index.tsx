@@ -13,10 +13,9 @@ import UpdateGif from './UpdateGif';
 
 interface CompetitorActionProps {
     competitor: Competitor | null;
-    updateCompetitors: (updatedCompetitor: Competitor) => void;
 }
 
-export default function CompetitorActions({ competitor, updateCompetitors }: CompetitorActionProps) {
+export default function CompetitorActions({ competitor }: CompetitorActionProps) {
     const [open, setOpen] = useState(false);
     const [activeGif, setActiveGif] = useState<IGif | null>(null);
     const [allGifs, setAllGifs] = useState<IGif[]>([]);
@@ -70,7 +69,6 @@ export default function CompetitorActions({ competitor, updateCompetitors }: Com
                         disabled={!activeGif || competitor?.image === activeGif.id}
                         competitor={competitor}
                         activeGif={activeGif}
-                        updateCompetitors={updateCompetitors}
                         setOpen={setOpen}
                     />
                 </Grid>
