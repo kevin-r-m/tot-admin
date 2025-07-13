@@ -2,19 +2,20 @@ import { Grid2 as Grid, Box, Typography, IconButton } from '@mui/material';
 import { Gif } from '@giphy/react-components';
 
 import type { IGif } from '@giphy/js-types';
-import type { Competitor } from '@/shared/types';
 
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface GifDisplayProps {
-    competitor: Competitor | null;
-    activeGif: IGif | null;
-    setActiveGif: (gif: IGif | null) => void;
+    competitorName: string;
+    activeGif: IGif | undefined;
     allGifs: IGif[];
 }
 
-export default function GifDisplay({ activeGif, setActiveGif, allGifs }: GifDisplayProps) {
+export default function GifDisplay({ competitorName, activeGif, allGifs }: GifDisplayProps) {
+    const queryClient = useQueryClient();
+
     function getActiveGifIndex() {
         if (!activeGif) {
             return -1;
@@ -25,18 +26,18 @@ export default function GifDisplay({ activeGif, setActiveGif, allGifs }: GifDisp
     function handleNextGif(goPrev: boolean) {
         const currentIndex = allGifs.findIndex((gif) => gif.id === activeGif?.id);
         if (currentIndex === allGifs.length - 1) {
-            setActiveGif(allGifs[0]);
+            queryClient.setQueryData(['gif', competitorName], allGifs[0]);
             return;
         }
         if (currentIndex === 0 && goPrev) {
-            setActiveGif(allGifs[allGifs.length - 1]);
+            queryClient.setQueryData(['gif', competitorName], allGifs[allGifs.length - 1]);
             return;
         }
         if (goPrev) {
-            setActiveGif(allGifs[currentIndex - 1]);
+            queryClient.setQueryData(['gif', competitorName], allGifs[currentIndex - 1]);
             return;
         }
-        setActiveGif(allGifs[currentIndex + 1]);
+        queryClient.setQueryData(['gif', competitorName], allGifs[currentIndex + 1]);
     }
 
     return (

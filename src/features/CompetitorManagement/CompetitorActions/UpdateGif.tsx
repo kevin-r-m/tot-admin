@@ -7,7 +7,7 @@ import type { IGif } from '@giphy/js-types';
 interface UpdateGifProps {
     disabled: boolean;
     competitor: Competitor | null;
-    activeGif: IGif | null;
+    activeGif: IGif | undefined;
     setOpen: (open: boolean) => void;
 }
 

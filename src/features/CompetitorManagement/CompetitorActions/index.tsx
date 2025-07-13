@@ -1,8 +1,8 @@
 import { Box, Grid2 as Grid, Typography, Paper } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import GifToast from './GifToast';
 
-import { getGifById } from './actions';
+import { useGifQuery } from './actions';
 import type { IGif } from '@giphy/js-types';
 import type { Competitor } from '@/shared/types';
 
@@ -16,21 +16,9 @@ interface CompetitorActionProps {
 }
 
 export default function CompetitorActions({ competitor }: CompetitorActionProps) {
+    const { data: gif } = useGifQuery(competitor?.image || '', competitor?.name || '');
     const [open, setOpen] = useState(false);
-    const [activeGif, setActiveGif] = useState<IGif | null>(null);
     const [allGifs, setAllGifs] = useState<IGif[]>([]);
-
-    useEffect(() => {
-        (async () => {
-            if (competitor?.image) {
-                const { data } = await getGifById(competitor.image);
-                setActiveGif(data);
-            } else {
-                setActiveGif(null);
-            }
-            setAllGifs([]);
-        })();
-    }, [competitor]);
 
     if (!competitor) {
         return <PickACompetitor />;
@@ -56,19 +44,14 @@ export default function CompetitorActions({ competitor }: CompetitorActionProps)
                         </Typography>
                         <Typography variant="body1">{competitor.description}</Typography>
                     </Box>
-                    <GifSearch setGifs={setAllGifs} setActiveGif={setActiveGif} competitorName={competitor.name} />
+                    <GifSearch setGifs={setAllGifs} competitorName={competitor.name} />
                 </Grid>
                 <Grid container spacing={2} alignItems="center" flexDirection={'column'} size={7}>
-                    <GifDisplay
-                        competitor={competitor}
-                        activeGif={activeGif}
-                        setActiveGif={setActiveGif}
-                        allGifs={allGifs}
-                    />
+                    <GifDisplay competitorName={competitor.name} activeGif={gif} allGifs={allGifs} />
                     <UpdateGif
-                        disabled={!activeGif || competitor?.image === activeGif.id}
+                        disabled={!gif || competitor?.image === gif.id}
                         competitor={competitor}
-                        activeGif={activeGif}
+                        activeGif={gif}
                         setOpen={setOpen}
                     />
                 </Grid>

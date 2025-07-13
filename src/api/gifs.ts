@@ -1,23 +1,12 @@
 import { GiphyFetch } from '@giphy/js-fetch-api';
 import { GIPHY_PUBLIC_KEY } from '@/shared/constants';
 import type { GifID } from '@giphy/js-types';
-import { useQuery } from '@tanstack/react-query';
 
 const gf = new GiphyFetch(GIPHY_PUBLIC_KEY);
 
-export function useGifQuery(gifId: GifID, name: string) {
-    return useQuery({
-        enabled: !!gifId,
-        queryKey: ['gif', name],
-        queryFn: () => getGifById(gifId),
-        staleTime: Infinity,
-    });
-}
-
-export async function getGifById(gifId: GifID) {
+export function getGifById(gifId: GifID) {
     const stringifiedId = gifId.toString();
-    const response = await gf.gif(stringifiedId);
-    return response.data;
+    return gf.gif(stringifiedId);
 }
 
 export function getGifsByTerm(term: string) {
