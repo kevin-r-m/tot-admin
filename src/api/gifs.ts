@@ -4,16 +4,18 @@ import type { GifID } from '@giphy/js-types';
 
 const gf = new GiphyFetch(GIPHY_PUBLIC_KEY);
 
-export function getGifById(gifId: GifID) {
+export async function getGifById(gifId: GifID) {
     const stringifiedId = gifId.toString();
-    return gf.gif(stringifiedId);
+    const response = await gf.gif(stringifiedId);
+    return response.data;
 }
 
-export function getGifsByTerm(term: string) {
-    return gf.search(term, {
+export async function getGifsByTerm(term: string) {
+    const response = await gf.search(term, {
         sort: 'relevant',
         lang: 'en',
         limit: 10,
         type: 'gifs',
     });
+    return response.data;
 }

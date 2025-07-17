@@ -1,22 +1,12 @@
-import { useState } from 'react';
-
 import { Box, IconButton, TextField } from '@mui/material';
-
-import { getGifsByTerm } from './actions';
-import { IGif } from '@giphy/js-types';
-
 import SearchIcon from '@mui/icons-material/Search';
-import { useQueryClient } from '@tanstack/react-query';
 
 interface GifSearchProps {
     competitorName: string | null;
-    setGifs: (gifs: IGif[]) => void;
+    setSearchTerm: (term: string) => void;
 }
 
-export function GifSearch({ competitorName = '', setGifs }: GifSearchProps) {
-    const [loading, setLoading] = useState(false);
-    const queryClient = useQueryClient();
-
+export function GifSearch({ competitorName = '', setSearchTerm }: GifSearchProps) {
     async function handleGifSearch(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
@@ -24,11 +14,7 @@ export function GifSearch({ competitorName = '', setGifs }: GifSearchProps) {
         if (!searchTerm) {
             return;
         }
-        setLoading(true);
-        const { data: gifs } = await getGifsByTerm(searchTerm);
-        setGifs(gifs);
-        setLoading(false);
-        queryClient.setQueryData(['gif', competitorName], gifs[0]);
+        setSearchTerm(searchTerm);
     }
 
     return (
@@ -48,7 +34,6 @@ export function GifSearch({ competitorName = '', setGifs }: GifSearchProps) {
                     color="primary"
                     disabled={!competitorName}
                     title={'Search for new set of gifs'}
-                    loading={loading}
                 >
                     <SearchIcon />
                 </IconButton>

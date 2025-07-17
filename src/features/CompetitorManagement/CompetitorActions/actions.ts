@@ -1,9 +1,6 @@
-import { GiphyFetch } from '@giphy/js-fetch-api';
-import { GIPHY_PUBLIC_KEY } from '@/shared/constants';
 import type { GifID } from '@giphy/js-types';
 import { useQuery } from '@tanstack/react-query';
-
-const gf = new GiphyFetch(GIPHY_PUBLIC_KEY);
+import { getGifById, getGifsByTerm } from '@/api/gifs';
 
 export function useGifQuery(gifId: GifID, name: string) {
     return useQuery({
@@ -14,17 +11,11 @@ export function useGifQuery(gifId: GifID, name: string) {
     });
 }
 
-export async function getGifById(gifId: GifID) {
-    const stringifiedId = gifId.toString();
-    const response = await gf.gif(stringifiedId);
-    return response.data;
-}
-
-export function getGifsByTerm(term: string) {
-    return gf.search(term, {
-        sort: 'relevant',
-        lang: 'en',
-        limit: 10,
-        type: 'gifs',
+export function useGifsByTermQuery(term: string) {
+    return useQuery({
+        enabled: !!term,
+        queryKey: ['gifs', term],
+        queryFn: () => getGifsByTerm(term),
+        staleTime: Infinity,
     });
 }

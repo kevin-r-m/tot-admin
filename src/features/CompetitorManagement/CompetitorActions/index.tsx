@@ -1,11 +1,8 @@
 import { Box, Grid2 as Grid, Typography, Paper } from '@mui/material';
 import { useState } from 'react';
 import GifToast from './GifToast';
-
-import { useGifQuery } from './actions';
-import type { IGif } from '@giphy/js-types';
+import { useGifQuery, useGifsByTermQuery } from './actions';
 import type { Competitor } from '@/shared/types';
-
 import PickACompetitor from './PickCompetitor';
 import { GifSearch } from './GifSearch';
 import GifDisplay from './GifDisplay';
@@ -16,9 +13,10 @@ interface CompetitorActionProps {
 }
 
 export default function CompetitorActions({ competitor }: CompetitorActionProps) {
-    const { data: gif } = useGifQuery(competitor?.image || '', competitor?.name || '');
+    const [searchTerm, setSearchTerm] = useState('');
     const [open, setOpen] = useState(false);
-    const [allGifs, setAllGifs] = useState<IGif[]>([]);
+    const { data: gif } = useGifQuery(competitor?.image || '', competitor?.name || '');
+    const { data: gifs = [] } = useGifsByTermQuery(searchTerm || '');
 
     if (!competitor) {
         return <PickACompetitor />;
@@ -44,10 +42,10 @@ export default function CompetitorActions({ competitor }: CompetitorActionProps)
                         </Typography>
                         <Typography variant="body1">{competitor.description}</Typography>
                     </Box>
-                    <GifSearch setGifs={setAllGifs} competitorName={competitor.name} />
+                    <GifSearch setSearchTerm={setSearchTerm} competitorName={competitor.name} />
                 </Grid>
                 <Grid container spacing={2} alignItems="center" flexDirection={'column'} size={7}>
-                    <GifDisplay competitorName={competitor.name} activeGif={gif} allGifs={allGifs} />
+                    <GifDisplay competitorName={competitor.name} activeGif={gif} allGifs={gifs} />
                     <UpdateGif
                         disabled={!gif || competitor?.image === gif.id}
                         competitor={competitor}
