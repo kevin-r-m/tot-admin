@@ -1,7 +1,7 @@
 import { Box, Grid2 as Grid, Typography, Paper } from '@mui/material';
 import { useState } from 'react';
 import GifToast from './GifToast';
-import { useGifQuery, useGifsByTermQuery } from './actions';
+import { useGifQuery, useGifsByTermQuery } from '../actions';
 import type { Competitor } from '@/shared/types';
 import PickACompetitor from './PickCompetitor';
 import { GifSearch } from './GifSearch';
