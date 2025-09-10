@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import { useUpdateCompetitorImageMutation } from '../actions';
+import { useUpdateCompetitorImageMutation } from '@/features/CompetitorManagement/actions';
 
 import type { Competitor } from '@/shared/types';
 import type { IGif } from '@giphy/js-types';

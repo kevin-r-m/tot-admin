@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { DialogActions, DialogContent, Button, TextField } from '@mui/material';
-import { useCreateCompetitorMutation } from '@/api/competitors';
+import { useCreateCompetitorMutation } from '@/features/CompetitorManagement/actions';
 import AIButton from './AIButton';
-import { streamAIDescription } from './actions';
+import { streamAIDescription } from '@/api/agent';
 import { Add } from '@mui/icons-material';
 
 interface FormProps {

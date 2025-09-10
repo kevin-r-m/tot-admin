@@ -1,6 +1,3 @@
-import type { Competitor } from '@/shared/types';
-import { useQueryClient, useMutation } from '@tanstack/react-query';
-
 export async function streamAIDescription(value: string, onData: (text: string) => void) {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/api/agent/streamDescription`, {
         method: 'POST',
@@ -50,28 +47,4 @@ export async function generateCompetitors(onData: (step: number) => void) {
         onData(parsed.step);
         if (parsed.step === parsed.totalSteps) return parsed;
     }
-}
-
-export function useCreateCompetitorsBulkMutation() {
-    const queryClient = useQueryClient();
-    return useMutation({
-        mutationKey: ['createCompetitorsBulk'],
-        mutationFn: (competitors: Competitor[]) => createCompetitorsBulk(competitors),
-        onSuccess: (data) => {
-            queryClient.setQueryData(['competitors'], (oldData: Competitor[]) => [...data, ...oldData]);
-        },
-    });
-}
-
-export async function createCompetitorsBulk(competitors: Competitor[]): Promise<Competitor[]> {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/competitor/bulk`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'x-api-key': import.meta.env.VITE_API_KEY,
-        },
-        body: JSON.stringify(competitors),
-    });
-    const data = await response.json();
-    return data.data;
 }

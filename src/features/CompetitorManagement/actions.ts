@@ -1,7 +1,7 @@
 import type { GifID } from '@giphy/js-types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getGifById, getGifsByTerm } from '@/api/gifs';
-import { createCompetitor, getCompetitors, updateCompetitorImage } from '@/api/competitors';
+import { createCompetitor, createCompetitorsBulk, getCompetitors, updateCompetitorImage } from '@/api/competitors';
 import { Competitor } from '@/shared/types';
 
 export function useGifQuery(gifId: GifID, name: string) {
@@ -55,6 +55,17 @@ export function useCreateCompetitorMutation() {
                 { _id: data.id, name, description, wins: 0, losses: 0, totalVotes: 0 },
                 ...oldData,
             ]);
+        },
+    });
+}
+
+export function useCreateCompetitorsBulkMutation() {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationKey: ['createCompetitorsBulk'],
+        mutationFn: (competitors: Competitor[]) => createCompetitorsBulk(competitors),
+        onSuccess: (data) => {
+            queryClient.setQueryData(['competitors'], (oldData: Competitor[]) => [...data, ...oldData]);
         },
     });
 }

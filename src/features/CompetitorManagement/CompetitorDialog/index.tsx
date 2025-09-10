@@ -3,7 +3,7 @@ import { Dialog, DialogTitle } from '@mui/material';
 import Form from './Form';
 import Selector from './Selector';
 import GeneratedCompetitors from './GeneratedCompetitors';
-import { generateCompetitors } from './actions';
+import { generateCompetitors } from '@/api/agent';
 import ProgressStepper from './ProgressStepper';
 
 export interface CompetitorDialogProps {

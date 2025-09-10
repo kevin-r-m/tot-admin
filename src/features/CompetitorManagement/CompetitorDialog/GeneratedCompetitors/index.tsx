@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useCreateCompetitorsBulkMutation } from '../actions';
+import { useCreateCompetitorsBulkMutation } from '@/features/CompetitorManagement/actions';
 import { DialogContent, DialogActions, Button } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import CompetitorTable from './CompetitorTable';
