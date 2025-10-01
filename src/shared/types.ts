@@ -1,6 +1,6 @@
 import type { GifID } from '@giphy/js-types';
 
-export interface Competitor {
+export type Competitor = {
     _id?: string;
     name: string;
     image?: GifID;
@@ -8,4 +8,4 @@ export interface Competitor {
     wins: number;
     losses: number;
     totalVotes: number;
-}
+};
