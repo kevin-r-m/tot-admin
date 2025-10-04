@@ -14,7 +14,7 @@ export default function CompetitorManagement() {
     const [dialogOpen, setDialogOpen] = useState(false);
 
     return (
-        <Grid container gap={4} direction={'column'} sx={{ marginTop: 4 }}>
+        <Grid container gap={4} direction={'column'} sx={{ marginTop: 4 }} width="100%">
             <CompetitorActions competitor={activeCompetitor} />
             <CompetitorList
                 competitors={data}
