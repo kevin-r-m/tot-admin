@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useCompetitorsQuery } from './actions';
+import { useCompetitorsQuery } from '@/shared/actions';
 
 import { Grid2 as Grid } from '@mui/material';
 import CompetitorActions from './CompetitorActions';

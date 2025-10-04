@@ -1,7 +1,7 @@
 import type { GifID } from '@giphy/js-types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getGifById, getGifsByTerm } from '@/api/gifs';
-import { createCompetitor, createCompetitorsBulk, getCompetitors, updateCompetitorImage } from '@/api/competitors';
+import { createCompetitor, createCompetitorsBulk, updateCompetitorImage } from '@/api/competitors';
 import { Competitor } from '@/shared/types';
 
 export function useGifQuery(gifId: GifID, name: string) {
@@ -19,15 +19,6 @@ export function useGifsByTermQuery(term: string) {
         queryKey: ['gifs', term],
         queryFn: () => getGifsByTerm(term),
         staleTime: Infinity,
-    });
-}
-
-export function useCompetitorsQuery() {
-    return useQuery({
-        queryKey: ['competitors'],
-        queryFn: () => getCompetitors(),
-        staleTime: Infinity,
-        refetchOnWindowFocus: true,
     });
 }
 
