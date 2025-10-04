@@ -9,3 +9,14 @@ export type Competitor = {
     losses: number;
     totalVotes: number;
 };
+
+export type Competition = {
+    _id?: string;
+    competitorA: Competitor;
+    competitorB: Competitor;
+    votesA: number;
+    votesB: number;
+    winner?: Competitor;
+    date: string;
+    isComplete: boolean;
+};
