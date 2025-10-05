@@ -7,7 +7,7 @@ interface Props {
 export default function RouteLayout({ children }: Props) {
     return (
         <Container>
-            <Grid container spacing={2} marginY={4}>
+            <Grid container spacing={2} marginY={4} width="100%">
                 {children}
             </Grid>
         </Container>
