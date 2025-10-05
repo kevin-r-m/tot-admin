@@ -1,10 +1,15 @@
 import CenteredLoadingSpinner from '@/components/UI/CenteredLoadingSpinner';
-import { Box, Grid2 as Grid, Typography } from '@mui/material';
+import { Grid2 as Grid } from '@mui/material';
 import { useCompetitorsQuery, useCompetitionsQuery } from '@/shared/actions';
+import VotesChart from './VotesChart';
+import Headline from './Headline';
+import MostVoted from './MostVoted';
+import FeatureLayout from '@/components/Layout/FeatureLayout';
+import CurrentCompetition from './CurrentCompetition';
 
 export default function Dashboard() {
-    const { data: competitions = [], isLoading: competitionsLoading } = useCompetitionsQuery();
-    const { data: competitors = [], isLoading: competitorsLoading } = useCompetitorsQuery();
+    const { isLoading: competitionsLoading } = useCompetitionsQuery();
+    const { isLoading: competitorsLoading } = useCompetitorsQuery();
     const isLoading = competitionsLoading || competitorsLoading;
 
     if (isLoading) {
@@ -12,24 +17,13 @@ export default function Dashboard() {
     }
 
     return (
-        <Grid container spacing={2} width="100%">
-            <Grid width="100%" display="flex" justifyContent="space-between" alignItems="top">
-                <Typography variant="h4">Dashboard</Typography>
-                <Grid display="flex" justifyContent="space-between" alignItems="center" gap={4}>
-                    <Box>
-                        <Typography variant="h4">{competitions.length}</Typography>
-                        <Typography variant="subtitle1" color="text.secondary">
-                            Competitions
-                        </Typography>
-                    </Box>
-                    <Box>
-                        <Typography variant="h4">{competitors.length}</Typography>
-                        <Typography variant="subtitle1" color="text.secondary">
-                            Competitors
-                        </Typography>
-                    </Box>
-                </Grid>
+        <FeatureLayout>
+            <Headline />
+            <CurrentCompetition />
+            <Grid flexDirection={'row'} display={'flex'} gap={2} width="100%">
+                <VotesChart />
+                <MostVoted />
             </Grid>
-        </Grid>
+        </FeatureLayout>
     );
 }

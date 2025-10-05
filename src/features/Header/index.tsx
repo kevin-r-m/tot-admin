@@ -10,7 +10,7 @@ export default function Header() {
                     <Typography variant="h6" component="a" href="/" color="inherit" sx={{ textDecoration: 'none' }}>
                         This or That Admin
                     </Typography>
-                    <Box display="flex" gap={2}>
+                    <Box display="flex" gap={4}>
                         {pages.map((page) => (
                             <Typography
                                 variant="body1"
