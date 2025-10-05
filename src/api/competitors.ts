@@ -1,7 +1,7 @@
 import { Competitor } from '@/shared/types';
 import type { GifID } from '@giphy/js-types';
 
-export async function getCompetitors() {
+export async function getCompetitors(): Promise<Competitor[]> {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/api/competitors`, {
         method: 'GET',
         headers: {
