@@ -19,3 +19,7 @@ export async function getGifsByTerm(term: string) {
     });
     return response.data;
 }
+
+export function getCompetitionGifs(competitorOneImage: GifID, competitorTwoImage: GifID) {
+    return Promise.all([getGifById(competitorOneImage), getGifById(competitorTwoImage)]);
+}

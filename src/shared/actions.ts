@@ -6,6 +6,7 @@ export function useCompetitionsQuery() {
     return useQuery({
         queryKey: ['competitions'],
         queryFn: getCompetitions,
+        staleTime: Infinity,
     });
 }
 
