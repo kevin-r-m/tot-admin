@@ -12,11 +12,9 @@ export type Competitor = {
 
 export type Competition = {
     _id?: string;
-    competitorA: Competitor;
-    competitorB: Competitor;
-    votesA: number;
-    votesB: number;
-    winner?: Competitor;
-    date: string;
-    isComplete: boolean;
+    competitorOne: Competitor;
+    competitorTwo: Competitor;
+    totalVotes: number;
+    createdAt: string;
+    updatedAt: string;
 };
