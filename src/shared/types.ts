@@ -12,8 +12,8 @@ export type Competitor = {
 
 export type Competition = {
     _id?: string;
-    competitorOne: Competitor;
-    competitorTwo: Competitor;
+    competitorOne: { id: string; name: string; image: GifID; votes: number; winner: boolean };
+    competitorTwo: { id: string; name: string; image: GifID; votes: number; winner: boolean };
     totalVotes: number;
     createdAt: string;
     updatedAt: string;

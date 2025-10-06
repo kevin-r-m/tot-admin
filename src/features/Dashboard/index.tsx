@@ -6,6 +6,7 @@ import Headline from './Headline';
 import MostVoted from './MostVoted';
 import FeatureLayout from '@/components/Layout/FeatureLayout';
 import CurrentCompetition from './CurrentCompetition';
+import QuickActions from './QuickActions';
 
 export default function Dashboard() {
     const { isLoading: competitionsLoading } = useCompetitionsQuery();
@@ -19,10 +20,13 @@ export default function Dashboard() {
     return (
         <FeatureLayout>
             <Headline />
-            <CurrentCompetition />
-            <Grid flexDirection="row" display="flex" gap={4} width="100%">
-                <VotesChart />
-                <MostVoted />
+            <Grid display="flex" flexDirection="row" gap={3} width="100%">
+                <CurrentCompetition />
+                <Grid flexDirection="column" display="flex" gap={3} width="100%" flex={1}>
+                    <QuickActions />
+                    <VotesChart />
+                    <MostVoted />
+                </Grid>
             </Grid>
         </FeatureLayout>
     );

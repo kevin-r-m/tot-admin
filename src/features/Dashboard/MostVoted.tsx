@@ -4,14 +4,14 @@ import { Table, TableBody, TableCell, TableHead, TableRow, Paper, Typography } f
 export default function MostVoted() {
     const { data: competitors = [] } = useCompetitorsQuery();
 
-    const tenMostVotedCompetitors = competitors
+    const mostVotedForCompetitors = competitors
         .filter((c) => c.totalVotes && c.totalVotes > 0)
         .sort((a, b) => b.totalVotes! - a.totalVotes!)
         .slice(0, 10);
 
     return (
         <Paper elevation={3} sx={{ padding: 2, width: '100%' }}>
-            <Typography variant="h6">Most Voted Competitors</Typography>
+            <Typography variant="h6">Most Voted For Competitors</Typography>
             <Table aria-label="most voted competitors">
                 <TableHead>
                     <TableRow>
@@ -33,7 +33,7 @@ export default function MostVoted() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {tenMostVotedCompetitors.map((row) => (
+                    {mostVotedForCompetitors.map((row) => (
                         <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                             <TableCell component="th" scope="row">
                                 {row.name}
