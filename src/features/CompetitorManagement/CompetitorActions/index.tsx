@@ -8,17 +8,17 @@ import { GifSearch } from './GifSearch';
 import GifDisplay from './GifDisplay';
 import UpdateGif from './UpdateGif';
 
-interface CompetitorActionProps {
+interface Props {
     competitor: Competitor | null;
 }
 
-export default function CompetitorActions({ competitor }: CompetitorActionProps) {
+export default function CompetitorActions(props: Props) {
     const [searchTerm, setSearchTerm] = useState('');
     const [open, setOpen] = useState(false);
-    const { data: gif } = useGifQuery(competitor?.image || '', competitor?.name || '');
+    const { data: gif } = useGifQuery(props.competitor?.image || '', props.competitor?.name || '');
     const { data: gifs = [] } = useGifsByTermQuery(searchTerm || '');
 
-    if (!competitor) {
+    if (!props.competitor) {
         return <PickACompetitor />;
     }
 
@@ -38,17 +38,17 @@ export default function CompetitorActions({ competitor }: CompetitorActionProps)
                 <Grid display="flex" flexDirection={'column'} justifyContent={'space-between'} size={9}>
                     <Box>
                         <Typography variant="h3" gutterBottom>
-                            {competitor.name}
+                            {props.competitor.name}
                         </Typography>
-                        <Typography variant="body1">{competitor.description}</Typography>
+                        <Typography variant="body1">{props.competitor.description}</Typography>
                     </Box>
-                    <GifSearch setSearchTerm={setSearchTerm} competitorName={competitor.name} />
+                    <GifSearch setSearchTerm={setSearchTerm} competitorName={props.competitor.name} />
                 </Grid>
                 <Grid container spacing={2} alignItems="center" flexDirection={'column'} size={7}>
-                    <GifDisplay competitorName={competitor.name} activeGif={gif} allGifs={gifs} />
+                    <GifDisplay competitorName={props.competitor.name} activeGif={gif} allGifs={gifs} />
                     <UpdateGif
-                        disabled={!gif || competitor?.image === gif.id}
-                        competitor={competitor}
+                        disabled={!gif || props.competitor?.image === gif.id}
+                        competitor={props.competitor}
                         activeGif={gif}
                         setOpen={setOpen}
                     />

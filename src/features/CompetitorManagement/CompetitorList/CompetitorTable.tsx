@@ -2,6 +2,7 @@ import { DataGrid, GridColDef, GridActionsCellItem } from '@mui/x-data-grid';
 import type { Competitor } from '@/shared/types';
 import EditIcon from '@mui/icons-material/Edit';
 import { Delete } from '@mui/icons-material';
+import { useCompetitorsQuery } from '@/shared/actions';
 
 const columns: GridColDef[] = [
     { field: '_id', headerName: 'ID', flex: 0.3 },
@@ -36,16 +37,15 @@ const columns: GridColDef[] = [
 
 const paginationModel = { page: 0, pageSize: 5, pageSizeOptions: [5, 10] };
 
-interface CompetitorTableProps {
-    competitors: Competitor[];
+interface Props {
     setActiveCompetitor: (competitor: Competitor) => void;
-    isLoading: boolean;
 }
 
-export default function CompetitorTable({ competitors, setActiveCompetitor, isLoading }: CompetitorTableProps) {
+export default function CompetitorTable(props: Props) {
+    const { data: competitors = [] } = useCompetitorsQuery();
+
     return (
         <DataGrid
-            loading={isLoading}
             rows={competitors}
             columns={columns}
             initialState={{ pagination: { paginationModel } }}
@@ -53,7 +53,7 @@ export default function CompetitorTable({ competitors, setActiveCompetitor, isLo
             sx={{ border: 0, width: '100%', height: '100%' }}
             getRowId={(row) => row._id}
             onRowClick={(item) => {
-                setActiveCompetitor(item.row);
+                props.setActiveCompetitor(item.row);
             }}
         />
     );

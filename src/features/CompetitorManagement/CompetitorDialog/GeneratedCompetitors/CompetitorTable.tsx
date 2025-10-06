@@ -11,7 +11,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
 }));
 
-interface CompetitorTableProps {
+interface Props {
     rows: {
         competitorName: string;
         matchedCompetitor: string;
@@ -21,7 +21,7 @@ interface CompetitorTableProps {
     setIdsToAdd: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-export default function CompetitorTable({ rows, idsToAdd, setIdsToAdd }: CompetitorTableProps) {
+export default function CompetitorTable(props: Props) {
     return (
         <Paper sx={{ marginBottom: 2 }}>
             <TableContainer sx={{ maxHeight: 540, paddingRight: 2 }}>
@@ -40,13 +40,13 @@ export default function CompetitorTable({ rows, idsToAdd, setIdsToAdd }: Competi
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row, index) => (
+                        {props.rows.map((row, index) => (
                             <Row
                                 key={row.competitorName}
                                 row={row}
                                 defaultOpen={index === 0}
-                                idsToAdd={idsToAdd}
-                                setIdsToAdd={setIdsToAdd}
+                                idsToAdd={props.idsToAdd}
+                                setIdsToAdd={props.setIdsToAdd}
                             />
                         ))}
                     </TableBody>

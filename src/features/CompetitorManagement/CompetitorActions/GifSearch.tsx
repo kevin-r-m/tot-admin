@@ -1,12 +1,12 @@
 import { Box, IconButton, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
-interface GifSearchProps {
+interface Props {
     competitorName: string | null;
     setSearchTerm: (term: string) => void;
 }
 
-export function GifSearch({ competitorName = '', setSearchTerm }: GifSearchProps) {
+export function GifSearch(props: Props) {
     async function handleGifSearch(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
@@ -14,25 +14,25 @@ export function GifSearch({ competitorName = '', setSearchTerm }: GifSearchProps
         if (!searchTerm) {
             return;
         }
-        setSearchTerm(searchTerm);
+        props.setSearchTerm(searchTerm);
     }
 
     return (
         <form onSubmit={handleGifSearch}>
             <Box display={'flex'} alignItems={'center'} gap={2}>
                 <TextField
-                    key={competitorName}
+                    key={props.competitorName}
                     name="search"
                     label="Search for gifs"
                     fullWidth
                     required
-                    defaultValue={competitorName}
+                    defaultValue={props.competitorName}
                 />
                 <IconButton
                     type="submit"
                     aria-label={'Search'}
                     color="primary"
-                    disabled={!competitorName}
+                    disabled={!props.competitorName}
                     title={'Search for new set of gifs'}
                 >
                     <SearchIcon />

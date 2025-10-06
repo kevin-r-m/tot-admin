@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Box, Collapse, IconButton, Switch, TableCell, TableRow, Typography } from '@mui/material';
 import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 
-interface RowProps {
+interface Props {
     row: {
         competitorName: string;
         matchedCompetitor: string;
@@ -13,14 +13,14 @@ interface RowProps {
     setIdsToAdd: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-export function Row({ row, defaultOpen, idsToAdd, setIdsToAdd }: RowProps) {
-    const [open, setOpen] = useState(defaultOpen);
+export function Row(props: Props) {
+    const [open, setOpen] = useState(props.defaultOpen);
 
     function handleSwitchChange() {
-        if (idsToAdd.includes(row.competitorName)) {
-            setIdsToAdd((prev) => prev.filter((id) => id !== row.competitorName));
+        if (props.idsToAdd.includes(props.row.competitorName)) {
+            props.setIdsToAdd((prev) => prev.filter((id) => id !== props.row.competitorName));
         } else {
-            setIdsToAdd((prev) => [...prev, row.competitorName]);
+            props.setIdsToAdd((prev) => [...prev, props.row.competitorName]);
         }
     }
 
@@ -33,13 +33,13 @@ export function Row({ row, defaultOpen, idsToAdd, setIdsToAdd }: RowProps) {
                     </IconButton>
                 </TableCell>
                 <TableCell component="th" scope="row" width={200}>
-                    {row.competitorName}
+                    {props.row.competitorName}
                 </TableCell>
                 <TableCell align="right" width={240}>
-                    {row.matchedCompetitor || 'N/A'}
+                    {props.row.matchedCompetitor || 'N/A'}
                 </TableCell>
                 <TableCell align="right">
-                    <Switch onChange={handleSwitchChange} checked={idsToAdd.includes(row.competitorName)} />
+                    <Switch onChange={handleSwitchChange} checked={props.idsToAdd.includes(props.row.competitorName)} />
                 </TableCell>
             </TableRow>
             <TableRow sx={{ bgcolor: '#F5F5F5' }}>
@@ -50,7 +50,7 @@ export function Row({ row, defaultOpen, idsToAdd, setIdsToAdd }: RowProps) {
                                 New Competitor Description
                             </Typography>
                             <Typography variant="body1" gutterBottom component="div">
-                                {row.description}
+                                {props.row.description}
                             </Typography>
                         </Box>
                     </Collapse>

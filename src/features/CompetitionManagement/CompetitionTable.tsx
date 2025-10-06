@@ -47,11 +47,11 @@ const columns: GridColDef[] = [
 const paginationModel = { page: 0, pageSize: 10, pageSizeOptions: [10, 20] };
 
 export default function CompetitionTable() {
-    const { data: competitions = [], isLoading } = useCompetitionsQuery();
+    const { data: competitions = [] } = useCompetitionsQuery();
+
     return (
         <Paper elevation={3} sx={{ padding: 2, width: '100%' }}>
             <DataGrid
-                loading={isLoading}
                 rows={competitions}
                 columns={columns}
                 initialState={{ pagination: { paginationModel } }}

@@ -4,7 +4,7 @@ import { DialogContent, DialogActions, Button } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import CompetitorTable from './CompetitorTable';
 
-interface GeneratedCompetitorsProps {
+interface Props {
     handleClose: () => void;
     rows: {
         competitorName: string;
@@ -12,28 +12,29 @@ interface GeneratedCompetitorsProps {
         description: string;
     }[];
 }
-export default function GeneratedCompetitors({ handleClose, rows }: GeneratedCompetitorsProps) {
+export default function GeneratedCompetitors(props: Props) {
     const { mutate: createCompetitorsBulk, isPending } = useCreateCompetitorsBulkMutation();
-    const [idsToAdd, setIdsToAdd] = useState(rows.map((row) => row.competitorName));
+    const [idsToAdd, setIdsToAdd] = useState(props.rows.map((row) => row.competitorName));
 
     async function handleAdd() {
-        const rowsToAdd = rows.filter((row) => idsToAdd.includes(row.competitorName));
+        const rowsToAdd = props.rows.filter((row) => idsToAdd.includes(row.competitorName));
         const competitorsToAdd = rowsToAdd.map((row) => ({
             name: row.competitorName,
             description: row.description,
             wins: 0,
             losses: 0,
             totalVotes: 0,
+            updatedAt: '',
         }));
         createCompetitorsBulk(competitorsToAdd);
-        handleClose();
+        props.handleClose();
     }
 
     return (
         <DialogContent>
-            <CompetitorTable rows={rows} idsToAdd={idsToAdd} setIdsToAdd={setIdsToAdd} />
+            <CompetitorTable rows={props.rows} idsToAdd={idsToAdd} setIdsToAdd={setIdsToAdd} />
             <DialogActions sx={{ gap: 2 }}>
-                <Button variant="outlined" color="error" onClick={handleClose} disabled={isPending}>
+                <Button variant="outlined" color="error" onClick={props.handleClose} disabled={isPending}>
                     Cancel
                 </Button>
                 <Button

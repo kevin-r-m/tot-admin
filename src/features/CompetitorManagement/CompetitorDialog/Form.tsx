@@ -5,7 +5,7 @@ import AIButton from './AIButton';
 import { streamAIDescription } from '@/api/agent';
 import { Add } from '@mui/icons-material';
 
-interface FormProps {
+interface Props {
     handleClose: () => void;
     formFields: {
         name: string;
@@ -19,15 +19,15 @@ interface FormProps {
     >;
 }
 
-export default function Form({ handleClose, formFields, setFormFields }: FormProps) {
+export default function Form(props: Props) {
     const [loading, setLoading] = useState(false);
     const { mutate: createCompetitor } = useCreateCompetitorMutation();
 
     async function handleAIDescription() {
         setLoading(true);
-        setFormFields((curr) => ({ ...curr, description: '' }));
-        await streamAIDescription(formFields.name, (chunk) => {
-            setFormFields((curr) => ({
+        props.setFormFields((curr) => ({ ...curr, description: '' }));
+        await streamAIDescription(props.formFields.name, (chunk) => {
+            props.setFormFields((curr) => ({
                 ...curr,
                 description: curr.description + chunk,
             }));
@@ -43,7 +43,7 @@ export default function Form({ handleClose, formFields, setFormFields }: FormPro
 
         createCompetitor({ name, description });
 
-        handleClose();
+        props.handleClose();
     }
 
     return (
@@ -56,7 +56,7 @@ export default function Form({ handleClose, formFields, setFormFields }: FormPro
                     type="text"
                     fullWidth
                     required
-                    onChange={(e) => setFormFields((curr) => ({ ...curr, name: e.target.value }))}
+                    onChange={(e) => props.setFormFields((curr) => ({ ...curr, name: e.target.value }))}
                 />
                 <TextField
                     margin="dense"
@@ -67,15 +67,15 @@ export default function Form({ handleClose, formFields, setFormFields }: FormPro
                     rows={6}
                     multiline
                     required
-                    value={formFields.description}
-                    onChange={(e) => setFormFields((curr) => ({ ...curr, description: e.target.value }))}
+                    value={props.formFields.description}
+                    onChange={(e) => props.setFormFields((curr) => ({ ...curr, description: e.target.value }))}
                     disabled={loading}
                     slotProps={{
                         input: {
                             endAdornment: (
                                 <AIButton
                                     isLoading={loading}
-                                    disabled={!formFields.name || loading}
+                                    disabled={!props.formFields.name || loading}
                                     onClick={handleAIDescription}
                                 />
                             ),
@@ -83,7 +83,7 @@ export default function Form({ handleClose, formFields, setFormFields }: FormPro
                     }}
                 />
                 <DialogActions sx={{ gap: 2 }}>
-                    <Button onClick={handleClose} variant="outlined" color="error">
+                    <Button onClick={props.handleClose} variant="outlined" color="error">
                         Cancel
                     </Button>
                     <Button endIcon={<Add />} type="submit" variant="contained" color="success">

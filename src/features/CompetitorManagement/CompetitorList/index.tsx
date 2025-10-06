@@ -4,19 +4,12 @@ import type { Competitor } from '@/shared/types';
 import CompetitorTable from './CompetitorTable';
 import AddCompetitor from './AddCompetitor';
 
-interface CompetitorListProps {
-    competitors: Competitor[];
+interface Props {
     setActiveCompetitor: (competitor: Competitor) => void;
     setDialogOpen: (open: boolean) => void;
-    isLoading: boolean;
 }
 
-export default function CompetitorList({
-    competitors,
-    setActiveCompetitor,
-    setDialogOpen,
-    isLoading,
-}: CompetitorListProps) {
+export default function CompetitorList(props: Props) {
     return (
         <Paper
             sx={{
@@ -29,12 +22,8 @@ export default function CompetitorList({
                 alignItems: 'end',
             }}
         >
-            <AddCompetitor setDialogOpen={setDialogOpen} />
-            <CompetitorTable
-                competitors={competitors}
-                setActiveCompetitor={setActiveCompetitor}
-                isLoading={isLoading}
-            />
+            <AddCompetitor setDialogOpen={props.setDialogOpen} />
+            <CompetitorTable setActiveCompetitor={props.setActiveCompetitor} />
         </Paper>
     );
 }

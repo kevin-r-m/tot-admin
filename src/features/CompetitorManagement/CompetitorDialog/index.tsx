@@ -6,12 +6,12 @@ import GeneratedCompetitors from './GeneratedCompetitors';
 import { generateCompetitors } from '@/api/agent';
 import ProgressStepper from './ProgressStepper';
 
-export interface CompetitorDialogProps {
+export interface Props {
     open: boolean;
     onClose: () => void;
 }
 
-export default function CompetitorDialog({ open, onClose }: CompetitorDialogProps) {
+export default function CompetitorDialog(props: Props) {
     const [view, setView] = useState<'auto' | 'manual' | 'progress' | null>(null);
     const [rows, setRows] = useState([]);
     const [activeStep, setActiveStep] = useState(0);
@@ -22,7 +22,7 @@ export default function CompetitorDialog({ open, onClose }: CompetitorDialogProp
 
     function handleClose() {
         setFormFields({ name: '', description: '' });
-        onClose();
+        props.onClose();
         setTimeout(() => {
             setView(null);
         }, 250);
@@ -46,7 +46,7 @@ export default function CompetitorDialog({ open, onClose }: CompetitorDialogProp
     }
 
     return (
-        <Dialog onClose={handleClose} open={open} fullWidth maxWidth="md">
+        <Dialog onClose={handleClose} open={props.open} fullWidth maxWidth="md">
             <DialogTitle>Add Competitor</DialogTitle>
             {view === 'manual' && (
                 <Form handleClose={handleClose} formFields={formFields} setFormFields={setFormFields} />
