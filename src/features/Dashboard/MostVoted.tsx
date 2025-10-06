@@ -10,9 +10,9 @@ export default function MostVoted() {
         .slice(0, 10);
 
     return (
-        <Paper elevation={3} sx={{ padding: 2, width: '100%' }}>
+        <Paper elevation={3} sx={{ padding: 2 }}>
             <Typography variant="h6">Most Voted For Competitors</Typography>
-            <Table aria-label="most voted competitors">
+            <Table aria-label="most voted competitors" size="small">
                 <TableHead>
                     <TableRow>
                         <TableCell>

@@ -8,6 +8,7 @@ export type Competitor = {
     wins: number;
     losses: number;
     totalVotes: number;
+    updatedAt: string;
 };
 
 export type Competition = {

@@ -8,9 +8,9 @@ An admin tool for interacting with the backend for [This or That](https://this-o
 
 ### Dashboard
 
-The dashboard provides a centralized overview of key metrics and recent activity within the admin interface. It displays the current competition, summaries on competition behaviors, and recent competitor additions. It also provides quick access to common actions.
+The dashboard provides a centralized overview of key metrics and recent activity within the admin interface. It displays the current competition, summaries on competition behaviors, and recent competitor additions. It also provides quick access to common actions and any alerts.
 
-The goal of the dashboard interface is to provide a snapshot of the application.
+The goal of the dashboard interface is to provide a snapshot of competitors, competitions, and overall application health.
 
 ![Admin Dashboard GIF](public/dashboard.gif)
 

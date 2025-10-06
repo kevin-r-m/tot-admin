@@ -23,7 +23,7 @@ export default function VotesChart() {
     }
 
     return (
-        <Paper elevation={3} sx={{ padding: 2, width: '100%' }}>
+        <Paper elevation={3} sx={{ padding: 2 }}>
             <Typography variant="h6">Total Competition Votes Over Time</Typography>
             <LineChart
                 height={300}

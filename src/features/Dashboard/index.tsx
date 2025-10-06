@@ -1,5 +1,5 @@
 import CenteredLoadingSpinner from '@/components/UI/CenteredLoadingSpinner';
-import { Grid2 as Grid } from '@mui/material';
+import { Divider, Grid2 as Grid } from '@mui/material';
 import { useCompetitorsQuery, useCompetitionsQuery } from '@/shared/actions';
 import VotesChart from './VotesChart';
 import Headline from './Headline';
@@ -7,6 +7,8 @@ import MostVoted from './MostVoted';
 import FeatureLayout from '@/components/Layout/FeatureLayout';
 import CurrentCompetition from './CurrentCompetition';
 import QuickActions from './QuickActions';
+import RecentlyCreated from './RecentlyCreated';
+import CompetitorAlert from './CompetitorAlert';
 
 export default function Dashboard() {
     const { isLoading: competitionsLoading } = useCompetitionsQuery();
@@ -24,8 +26,20 @@ export default function Dashboard() {
                 <CurrentCompetition />
                 <Grid flexDirection="column" display="flex" gap={3} width="100%" flex={1}>
                     <QuickActions />
-                    <VotesChart />
-                    <MostVoted />
+                    <Divider />
+                    <Grid
+                        flexDirection="column"
+                        display="flex"
+                        gap={3}
+                        maxHeight={800}
+                        overflow="auto"
+                        paddingBottom={2}
+                    >
+                        <CompetitorAlert />
+                        <VotesChart />
+                        <RecentlyCreated />
+                        <MostVoted />
+                    </Grid>
                 </Grid>
             </Grid>
         </FeatureLayout>
