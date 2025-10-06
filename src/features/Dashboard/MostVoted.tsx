@@ -15,9 +15,21 @@ export default function MostVoted() {
             <Table aria-label="most voted competitors">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell align="right">Total Votes</TableCell>
-                        <TableCell align="right">Total Wins</TableCell>
+                        <TableCell>
+                            <Typography variant="body2" fontWeight="bold">
+                                Name
+                            </Typography>
+                        </TableCell>
+                        <TableCell align="right">
+                            <Typography variant="body2" fontWeight="bold">
+                                Total Votes
+                            </Typography>
+                        </TableCell>
+                        <TableCell align="right">
+                            <Typography variant="body2" fontWeight="bold">
+                                Total Wins
+                            </Typography>
+                        </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

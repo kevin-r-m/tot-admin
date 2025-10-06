@@ -20,7 +20,7 @@ export default function Dashboard() {
         <FeatureLayout>
             <Headline />
             <CurrentCompetition />
-            <Grid flexDirection={'row'} display={'flex'} gap={2} width="100%">
+            <Grid flexDirection="row" display="flex" gap={4} width="100%">
                 <VotesChart />
                 <MostVoted />
             </Grid>
