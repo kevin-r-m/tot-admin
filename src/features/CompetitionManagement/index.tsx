@@ -1,3 +1,10 @@
-export default function CompetitonManagement() {
-    return <div>index</div>;
+import FeatureLayout from '@/components/Layout/FeatureLayout';
+import CompetitionTable from './CompetitionTable';
+
+export default function CompetitionManagement() {
+    return (
+        <FeatureLayout>
+            <CompetitionTable />
+        </FeatureLayout>
+    );
 }
