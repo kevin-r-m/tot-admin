@@ -47,7 +47,7 @@ There are two main AI workflows:
 1. Streaming descriptions for a single competitor
 2. Batch generation of multiple competitors with fuzzy matching against existing data
 
-## Streaming Single Competitor Descriptions
+### Streaming Single Competitor Descriptions
 
 When an admin wants help writing or refining a competitor description, the backend uses a streaming run against the Describer assistant:
 
@@ -73,7 +73,7 @@ This keeps the experience responsive and lets the user see the description form 
 
 ![Admin Competitor Description AI Actions GIF](public/description_ai.gif)
 
-## Bulk Competitor Generation
+### Bulk Competitor Generation
 
 Bulk generation uses a separate Generator assistant and a structured, multi-step pipeline:
 
@@ -95,7 +95,7 @@ streamStep({ step: 2, totalSteps, data: enrichedCompetitors });
 
 What’s happening under the hood:
 
-#### Streaming Progress Updates
+##### Streaming Progress Updates
 
 The bulk generation pipeline sends progress back to the client as a stream of JSON chunks. The frontend listens to this stream and updates progress using `{ step, totalSteps }` values as they arrive:
 
@@ -105,7 +105,7 @@ The bulk generation pipeline sends progress back to the client as a stream of JS
 
 This avoids a long blocking request and gives the admin real-time feedback as the server moves through each stage.
 
-#### AI generation via Generator assistant
+##### AI generation via Generator assistant
 
 ```js
 const numberOfCompetitors = 5;
@@ -131,7 +131,7 @@ if (run.status === 'completed') {
 }
 ```
 
-#### Fuzzy matching against existing competitors
+##### Fuzzy matching against existing competitors
 
 To avoid unintentionally re-creating very similar competitors, the backend runs a quick fuzzy search for each AI-generated name:
 
@@ -151,7 +151,7 @@ This results in a clear multi-step flow:
 
 ![Admin Competitor AI Actions GIF](public/competitor_ai.gif)
 
-## Thread Management & Expiration
+### Thread Management & Expiration
 
 To keep some conversational context without rebuilding prompts from scratch, the backend maintains one thread per assistant type (currently Describer and Generator).
 
