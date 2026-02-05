@@ -47,7 +47,7 @@ There are two main AI workflows:
 1. Streaming descriptions for a single competitor
 2. Batch generation of multiple competitors with fuzzy matching against existing data
 
-### Streaming Single Competitor Descriptions
+## Streaming Single Competitor Descriptions
 
 When an admin wants help writing or refining a competitor description, the backend uses a streaming run against the Describer assistant:
 
@@ -73,7 +73,7 @@ This keeps the experience responsive and lets the user see the description form 
 
 ![Admin Competitor Description AI Actions GIF](public/description_ai.gif)
 
-### Bulk Competitor Generation
+## Bulk Competitor Generation
 
 Bulk generation uses a separate Generator assistant and a structured, multi-step pipeline:
 
@@ -151,7 +151,7 @@ This results in a clear multi-step flow:
 
 ![Admin Competitor AI Actions GIF](public/competitor_ai.gif)
 
-### Thread Management & Expiration
+## Thread Management & Expiration
 
 To keep some conversational context without rebuilding prompts from scratch, the backend maintains one thread per assistant type (currently Describer and Generator).
 
@@ -191,7 +191,7 @@ async function resolveThread(type) {
 
 This keeps the context for each assistant type reasonably fresh while MongoDB handles automatic cleanup.
 
-## Libraries
+# Libraries
 
 - OpenAI API
 - TanStack Query & Router
