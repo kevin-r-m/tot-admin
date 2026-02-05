@@ -1,8 +1,4 @@
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import Typography from '@mui/material/Typography';
-import { CircularProgress, DialogContent } from '@mui/material';
+import { Stepper, Step, StepLabel, Typography, CircularProgress, DialogContent } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { Check } from '@mui/icons-material';
 
